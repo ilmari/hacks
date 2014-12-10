@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+#
+# Works out which pair(s) of character encodings gave rise to a given
+# mangling. Assumes UTF-8 locale
+#
+# Usage: charmangling <orig> <mangled>
+
+use 5.010;
+use strict;
+use warnings FATAL => 'all';
+use utf8;
+use open qw(:std :encoding(utf8));
+
+use Encode;
+use constant CROAK => Encode::FB_CROAK | Encode::LEAVE_SRC;
+
+my ($orig, $mangled) = map(decode_utf8($_, CROAK), @ARGV);
+
+die "usage: $0 <orig> <mangled>\n" unless length $orig && length $mangled;
+
+my @encodings = Encode->encodings(":all");
+
+for my $from (@encodings) {
+    for my $to (@encodings) {
+        say "$from interpreted as $to"
+            if eval { encode($from, $orig, CROAK) eq encode($to, $mangled, CROAK) };
+    }
+}
