@@ -1,0 +1,28 @@
+### Commented entries have reasonable defaults.
+### Uncomment to edit them.
+# Source: <source package name; defaults to package name>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+
+Package: bc-multiarch
+Version: 1.0
+Maintainer: Dagfinn Ilmari Mannsåker <ilmari@ilmari.org>
+# Versioned dependency to pull in the real bc package
+Depends: bc (>= 1.06)
+Provides: bc
+Architecture: all
+Multi-Arch: foreign
+# Copyright: <copyright file; defaults to GPL2>
+# Changelog: <changelog file; defaults to a generic changelog>
+# Readme: <README.Debian file; defaults to a generic one>
+# Extra-Files: <comma-separated list of additional files for the doc directory>
+# Files: <pair of space-separated paths; First is file to include, second is destination>
+#  <more pairs, if there's more than one file to include. Notice the starting space>
+Description: Dummy multiarch bc dependency package
+ This package provides a dummy multi-arch bc and depends on the real
+ one, so packages from other architectures that require bc can be
+ installed even though the real bc isn't Multi-Arch: foreign.
+ .
+ It can be safely removed once a bc with Multi-Arch: foreign is
+ installed.
