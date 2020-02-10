@@ -22,6 +22,7 @@ my @encodings = Encode->encodings(":all");
 
 for my $from (@encodings) {
     for my $to (@encodings) {
+        next if $from eq $to; # skip silent replacement characters
         say "$from interpreted as $to"
             if eval { encode($from, $orig, CROAK) eq encode($to, $mangled, CROAK) };
     }
