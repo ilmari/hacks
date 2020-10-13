@@ -18,7 +18,8 @@ my ($orig, $mangled) = map(decode_utf8($_, CROAK), @ARGV);
 
 die "usage: $0 <orig> <mangled>\n" unless length $orig && length $mangled;
 
-my @encodings = Encode->encodings(":all");
+# we don't care about strict variants (e.g. utf-8-strict)
+my @encodings = grep !/-strict$/, Encode->encodings(":all");
 
 for my $from (@encodings) {
     for my $to (@encodings) {
