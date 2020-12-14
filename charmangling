@@ -14,7 +14,7 @@ use open qw(:std :encoding(utf8));
 use Encode;
 use constant CROAK => Encode::FB_CROAK | Encode::LEAVE_SRC;
 
-my ($orig, $mangled) = map(decode_utf8($_, CROAK), @ARGV);
+my ($orig, $mangled) = map decode_utf8($_, CROAK), @ARGV;
 
 die "usage: $0 <orig> <mangled>\n" unless length $orig && length $mangled;
 
