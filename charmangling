@@ -9,12 +9,12 @@ use 5.010;
 use strict;
 use warnings FATAL => 'all';
 use utf8;
-use open qw(:std :encoding(utf8));
+use open qw(:std :encoding(UTF-8));
 
-use Encode;
+use Encode qw(decode encode);
 use constant CROAK => Encode::FB_CROAK | Encode::LEAVE_SRC;
 
-my ($orig, $mangled) = map decode_utf8($_, CROAK), @ARGV;
+my ($orig, $mangled) = map decode('UTF-8', $_, CROAK), @ARGV;
 
 die "usage: $0 <orig> <mangled>\n" unless length $orig && length $mangled;
 
